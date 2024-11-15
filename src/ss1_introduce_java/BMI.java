@@ -1,8 +1,7 @@
 package ss1_introduce_java;
-
 import java.util.Scanner;
-
 public class BMI {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         double height, weight, bmi;

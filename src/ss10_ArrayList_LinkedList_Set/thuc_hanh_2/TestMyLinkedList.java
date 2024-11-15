@@ -1,5 +1,5 @@
 package ss10_ArrayList_LinkedList_Set.thuc_hanh_2;
-java.util.ArrayList
+
 public class TestMyLinkedList {
     public static void main(String[] args) {
         MyLinkedList ll = new MyLinkedList(10);

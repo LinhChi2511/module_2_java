@@ -1,7 +1,5 @@
 package ss3_array;
 
-import com.sun.source.tree.IfTree;
-
 import java.util.Scanner;
 
 public class StudentArray {
