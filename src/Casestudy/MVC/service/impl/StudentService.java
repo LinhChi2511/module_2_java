@@ -7,17 +7,17 @@ import java.util.List;
 
 public class StudentService implements IStudentService {
     StudentRepository studentRepository = new StudentRepository();
-    private List<Student> students;
+
 
     @Override
     public List<Student> getAll() {
-        students = studentRepository.getAll();
+        List<Student> students = studentRepository.getAll();
         return students;
     }
 
     @Override
     public void add(Student student) {
-        studentRepository.add(student);
+        studentRepository.save(student);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class StudentService implements IStudentService {
 
     @Override
     public Student findById(int id) {
-        students = studentRepository.getAll();
+        List<Student> students = studentRepository.getAll();
         for (Student student : students) {
             if (student.getId() == id) {
                 return student;

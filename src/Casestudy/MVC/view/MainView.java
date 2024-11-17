@@ -38,9 +38,6 @@ public class MainView {
                     System.out.println("Tìm kiếm học sinh theo ID");
                     System.out.print("Mời bạn nhập id: ");
                     int id = inputId();
-                    while (id<0){
-                        id = inputId();
-                    }
                     if (studentController.isExist(id)){
                         System.out.println(studentController.findById(id));
                     } else {

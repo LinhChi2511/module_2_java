@@ -25,6 +25,6 @@ public class StudentController {
     }
 
     public Student findById(int id) {
-        studentService.findById(id);
+        return studentService.findById(id);
     }
 }
