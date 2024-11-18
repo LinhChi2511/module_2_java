@@ -7,46 +7,83 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentRepository {
-    public static final String SRC_Student = "src/Casestudy/MVC/data/student.dat";
+    public static final String SRC_Student = "module_2/src/Casestudy/MVC/data/Student.csv";
+
     public List<Student> getAll() {
         List<Student> students = new ArrayList<>();
         File file = new File(SRC_Student);
         try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            students = (List<Student>) objectInputStream.readObject();
-            objectInputStream.close();
-        } catch (FileNotFoundException e){
-            System.out.println("Không tìm thấy file");
-        } catch (ClassNotFoundException e){
-            System.out.println("Lỗi không tìm thấy class");
-        }catch (IOException e) {
-            System.out.println("Lỗi đọc file");
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            Student student;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] temp = line.split(",");
+                student = new Student(Integer.parseInt(temp[0]), temp[1], temp[2], Double.parseDouble(temp[3]), temp[4]);
+                students.add(student);
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("khong tim thay file");
+        } catch (IOException e) {
+            System.out.println("Loi doc file");
         }
         return students;
     }
 
-    public void save(Student s) {
-        List<Student> students = getAll();
-        students.add(s);
-        writeBinary(students);
-    }
-
-    public void writeBinary(List<Student> students) {
+    public void add(Student s) {
         File file = new File(SRC_Student);
-        FileOutputStream fileOutputStream = null;
-        try{
-            fileOutputStream = new FileOutputStream(file);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(students);
-            objectOutputStream.close();
+        try {
+            FileWriter fileWriter = new FileWriter(file, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(s.getId() + "," + s.getName() + "," + s.getAddress() + "," + s.getPoint() + "," + s.getClassName());
+            bufferedWriter.newLine();
+            bufferedWriter.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Không file");
+            System.out.println("khong tim thay file");
         } catch (IOException e) {
-            System.out.println("Lỗi ghi file");
-        } catch (Exception e){
-            System.out.println("Lỗi khác");
+            System.out.println("Loi ghi file");
         }
     }
+
+
+    public void deleteById(int id) {
+        List<Student> students = getAll();
+        for (Student student : students) {
+            if (student.getId() == id) {
+                students.remove(student);
+                break;
+            }
+        }
+        saveList(students);
+    }
+
+    public Student findById(int id) {
+        List<Student> students = getAll();
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public static void saveList(List<Student> students){
+        File file = new File(SRC_Student);
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            for (Student s: students){
+                bufferedWriter.write(s.getId() + "," + s.getName() + "," + s.getAddress() + "," + s.getPoint() + "," + s.getClassName());
+                bufferedWriter.newLine();
+
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("Loi ghi file");
+        }
+
+    }
+
 
 }

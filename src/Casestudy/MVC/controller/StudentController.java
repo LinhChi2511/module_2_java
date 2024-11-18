@@ -9,22 +9,29 @@ public class StudentController {
     StudentService studentService = new StudentService();
 
     public List<Student> getAll() {
-       List<Student> students = studentService.getAll();
-       return students;
+        List<Student> students = studentService.getAll();
+        return students;
     }
 
     public void add(Student student) {
         studentService.add(student);
+
     }
 
     public boolean isExist(int id) {
-       if (studentService.findById(id) != null) {
-           return true;
-       }
-       return false;
+        if (studentService.findById(id) != null) {
+            return true;
+        }
+        return false;
     }
 
     public Student findById(int id) {
         return studentService.findById(id);
+    }
+
+    public void deleteById(int id) {
+        if (isExist(id)) {
+            studentService.deleteById(id);
+        }
     }
 }

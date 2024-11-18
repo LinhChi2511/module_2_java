@@ -1,5 +1,7 @@
 package Casestudy.MVC.service;
 
+import Casestudy.MVC.entity.Student;
+
 import java.util.List;
 
 public interface IService<T>{
