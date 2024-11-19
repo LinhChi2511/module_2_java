@@ -76,12 +76,17 @@ public class StudentRepository {
             for (Student s: students){
                 bufferedWriter.write(s.getId() + "," + s.getName() + "," + s.getAddress() + "," + s.getPoint() + "," + s.getClassName());
                 bufferedWriter.newLine();
-
             }
             bufferedWriter.close();
         } catch (IOException e) {
             System.out.println("Loi ghi file");
         }
+    }
+
+    public void update(Student student){
+        List<Student> students = getAll();
+        students.add(student);
+        saveList(students);
 
     }
 

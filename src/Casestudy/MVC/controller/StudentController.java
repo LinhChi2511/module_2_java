@@ -30,8 +30,10 @@ public class StudentController {
     }
 
     public void deleteById(int id) {
-        if (isExist(id)) {
-            studentService.deleteById(id);
-        }
+        studentService.deleteById(id);
+    }
+
+    public void update(Student s) {
+        studentService.update(s);
     }
 }

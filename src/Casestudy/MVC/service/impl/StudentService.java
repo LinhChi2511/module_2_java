@@ -30,4 +30,9 @@ public class StudentService implements IStudentService {
     public Student findById(int id) {
         return studentRepository.findById(id);
     }
+
+    @Override
+    public void update(Student student) {
+        studentRepository.update(student);
+    }
 }
