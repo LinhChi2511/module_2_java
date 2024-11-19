@@ -35,4 +35,15 @@ public class TeacherService implements ITeacherService {
     public void update(Teacher teacher) {
 
     }
+
+    @Override
+    public Teacher findByName(String name) {
+        List<Teacher> teachers = teacherRepository.getAll();
+        for (Teacher teacher : teachers) {
+            if (teacher.getName().equals(name)) {
+                return teacher;
+            }
+        }
+        return null;
+    }
 }

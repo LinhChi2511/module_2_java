@@ -41,8 +41,10 @@ public class MainView {
             System.out.println("1. Hiển thị danh sách học sinh");
             System.out.println("2. Thêm mới học sinh");
             System.out.println("3. Tìm kiếm học sinh theo id");
-            System.out.println("4. Xóa học sinh");
-            System.out.println("5. Thoát");
+            System.out.println("4. Tìm kiếm học sinh theo tên");
+            System.out.println("5. Xóa học sinh");
+            System.out.println("6. Sửa thông tin học sinh");
+            System.out.println("7. Thoát");
             System.out.print("Mời bạn nhập lựa chọn: ");
             int choice = inputChoice();
             switch (choice) {
@@ -68,10 +70,25 @@ public class MainView {
                     }
                     break;
                 case 4:
+                    System.out.println("Tìm kiếm học sinh theo tên");
+                    System.out.print("Nhập tên học sinh cần tìm: ");
+                    Scanner scanner = new Scanner(System.in);
+                    String name = scanner.nextLine();
+                    if (studentController.findByName(name) != null) {
+                        System.out.println(studentController.findByName(name));
+                    } else {
+                        System.out.println("Không tìm thấy học sinh có tên " + name);
+                    }
+                    break;
+                case 5:
                     System.out.println("Xóa học sinh");
                     deleteStudent();
                     break;
-                case 5:
+                case 6:
+                    System.out.println("Thay đổi thông tin học sinh");
+                    updateStudent();
+                    break;
+                case 7:
                     return;
             }
         }
@@ -86,8 +103,9 @@ public class MainView {
             System.out.println("1. Hiển thị danh sách giảng viên");
             System.out.println("2. Thêm mới giảng viên");
             System.out.println("3. Tìm kiếm giảng viên theo id");
-            System.out.println("4. Xóa giảng viên");
-            System.out.println("5. Thoát");
+            System.out.println("4. Tìm kiếm giảng viên theo tên");
+            System.out.println("5. Xóa giảng viên");
+            System.out.println("6. Thoát");
             System.out.print("Mời bạn nhập lựa chọn: ");
             int choice = inputChoice();
             switch (choice) {
@@ -107,13 +125,24 @@ public class MainView {
                     System.out.print("Nhập id cần tìm kiếm: ");
                     int id = inputIdToFind();
                     if (teacherController.isExist(id)) {
-                        System.out.println(teacherController.findById(id));
+                        teacherController.findById(id);
                     } else {
                         System.out.println("Id not found");
                     }
                     break;
-                case 4:
-                    System.out.println("Xóa học sinh");
+                case 5:
+                    System.out.println("Tìm kiếm giáo viên theo tên");
+                    System.out.print("Nhập tên giáo viên cần tìm: ");
+                    Scanner scanner = new Scanner(System.in);
+                    String name = scanner.nextLine();
+                    if (teacherController.findByName(name) != null) {
+                        System.out.println(teacherController.findByName(name));
+                    } else {
+                        System.out.println("Không tìm thấy giáo viên có tên " + name);
+                    }
+                    break;
+                case 6:
+                    System.out.println("Xóa giáo viên");
                     deleteTeacher();
                     return;
             }
@@ -158,6 +187,51 @@ public class MainView {
             System.out.println("Không tìm thấy id");
     }
 
+    public static void updateStudent() {
+        Scanner scanner = new Scanner(System.in);
+        StudentController studentController = new StudentController();
+        System.out.print("Mời bạn nhập id: ");
+        int id = inputIdToFind();
+        if (studentController.isExist(id)) {
+            System.out.print("Mời bạn nhập tên học sinh: ");
+            String name = scanner.nextLine();
+            while (!(name.matches("^[A-Za-z ]+$"))) {
+                System.out.println("Bạn đã nhập sai định dạng");
+                System.out.print("Vui lòng nhập lại: ");
+                name = scanner.nextLine();
+            }
+
+            System.out.print("Mời bạn nhập địa chỉ học sinh: ");
+            String address = scanner.nextLine();
+            while (!(address.matches("^[A-Za-z0-9 -]+$"))) {
+                System.out.println("Bạn đã nhập sai định dạng");
+                System.out.print("Vui lòng nhập lại: ");
+                address = scanner.nextLine();
+            }
+
+            System.out.print("Mời bạn nhập điểm của học sinh: ");
+            double point = inputPoint();
+            while (point < 0) {
+                point = inputPoint();
+            }
+
+            System.out.print("Mời bạn nhập lớp: ");
+            String className = scanner.nextLine();
+            while (!(className.matches("^C[0-9]{4}$"))) {
+                System.out.println("Bạn đã nhập sai định dạng");
+                System.out.print("Vui lòng nhập lại (Cxx24 vd:C0724): ");
+                className = scanner.nextLine();
+            }
+
+            Student s = new Student(id, name, address, point, className);
+            studentController.update(s);
+        } else {
+            System.out.println("Không tìm thấy id: " + id);
+        }
+
+
+    }
+
 
     private static int inputChoice() {
         Scanner scanner = new Scanner(System.in);
@@ -180,7 +254,7 @@ public class MainView {
     }
 
     public static void displayTeacher(List<Teacher> teachers) {
-        for (Teacher teacher : teachers){
+        for (Teacher teacher : teachers) {
             System.out.println(teacher);
         }
     }
@@ -216,7 +290,7 @@ public class MainView {
 
         System.out.print("Mời bạn nhập lớp: ");
         String className = scanner.nextLine();
-        while (!(className.matches("^C[0-9]{4}"))) {
+        while (!(className.matches("^C[0-9]{4}$"))) {
             System.out.println("Bạn đã nhập sai định dạng");
             System.out.print("Vui lòng nhập lại (Cxx24 vd:C0724): ");
             className = scanner.nextLine();
@@ -248,11 +322,13 @@ public class MainView {
             address = scanner.nextLine();
         }
 
-        System.out.print("Mời bạn nhập tuổi giáo viên: ");
-        int age = inputAge();
-        while (age < 18 || age >= 60 ) {
-            age = inputAge();
+        System.out.println("Mời bạn nhập email: ");
+        String email = scanner.nextLine();
+        while (!(email.matches("^[A-Za-z0-9@]+$"))) {
+            System.out.print("Nhập sai định dạng, vui lòng nhập lại: ");
+            email = scanner.nextLine();
         }
+
         System.out.print("Mời bạn nhập lớp: ");
         String className = scanner.nextLine();
         while (!(className.matches("^C[0-9]{4}"))) {
@@ -260,7 +336,13 @@ public class MainView {
             System.out.print("Vui lòng nhập lại (Cxx24 vd:C0724): ");
             className = scanner.nextLine();
         }
-        return new Teacher(id, name, address, age, className);
+
+        System.out.print("Mời bạn nhập năm kinh nghiệm: ");
+        int exp = inputExp();
+        while (exp < 0) {
+            exp = inputExp();
+        }
+        return new Teacher(id, name, address, email, className, exp);
     }
 
 
@@ -271,8 +353,6 @@ public class MainView {
             return id;
         } catch (NumberFormatException e) {
             System.out.print("Nhập lỗi. Vui lòng nhập lại: ");
-        } catch (Exception e) {
-            System.out.println("Lỗi");
         }
         return 0;
     }
@@ -282,12 +362,14 @@ public class MainView {
         StudentController studentController = new StudentController();
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            if (!studentController.isExist(id)) {
-                return id;
-            } else {
-                System.out.print("Id đã tồn tại. Vui lòng nhập lại: ");
+            if (studentController.isExist(id)) {
+                System.out.print("Id đã tồn tại, nhập lại id khác: ");
                 return 0;
+            } else {
+                return id;
             }
+
+
         } catch (NumberFormatException e) {
             System.out.print("Nhập lỗi. Vui lòng nhập lại: ");
         } catch (Exception e) {
@@ -328,15 +410,18 @@ public class MainView {
         return -1;
     }
 
-    private static int inputAge(){
+    private static int inputExp() {
         Scanner scanner = new Scanner(System.in);
         try {
-            int age = Integer.parseInt(scanner.nextLine());
-            return age;
+            int exp = Integer.parseInt(scanner.nextLine());
+            return exp;
         } catch (NumberFormatException e) {
-            System.out.print("Nhập lỗi; vui lòng nhập lại ");
+            System.out.print("Nhập lỗi. Vui lòng nhập lại: ");
+        } catch (Exception e) {
+            System.out.println("Lỗi");
         }
-        return 0;
+        return -1;
     }
+
 }
 

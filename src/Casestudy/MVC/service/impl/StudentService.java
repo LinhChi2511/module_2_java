@@ -35,4 +35,15 @@ public class StudentService implements IStudentService {
     public void update(Student student) {
         studentRepository.update(student);
     }
+
+    @Override
+    public Student findByName(String name) {
+        List<Student> students = studentRepository.getAll();
+        for (Student student : students) {
+            if (student.getName().equals(name)) {
+                return student;
+            }
+        }
+        return null;
+    }
 }

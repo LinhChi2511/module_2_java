@@ -85,7 +85,12 @@ public class StudentRepository {
 
     public void update(Student student){
         List<Student> students = getAll();
-        students.add(student);
+        for (int i=0; i<students.size(); i++){
+            if (students.get(i).getId() == student.getId()){
+                students.set(i, student);
+                return;
+            }
+        }
         saveList(students);
 
     }

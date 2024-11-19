@@ -20,7 +20,7 @@ public class TeacherRepository {
             Teacher teacher;
             while ((line = bufferedReader.readLine())!= null){
                 String[] data = line.split(",");
-                teacher = new Teacher(Integer.parseInt(data[0]), data[1], data[2], Integer.parseInt(data[3]), data[4]) ;
+                teacher = new Teacher(Integer.parseInt(data[0]), data[1], data[2], data[3], data[4], Integer.parseInt(data[5])) ;
                 teachers.add(teacher);
             }
             bufferedReader.close();
@@ -39,7 +39,7 @@ public class TeacherRepository {
         try {
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(t.getId()+ "," +t.getName()+ "," +t.getAddress()+ "," +t.getAge()+ "," +t.getClassName());
+            bufferedWriter.write(t.getId()+ "," +t.getName()+ "," +t.getAddress()+ "," +t.getEmail()+ "," +t.getClassName() +","+ t.getExperience());
             bufferedWriter.newLine();
             bufferedWriter.close();
         } catch (IOException e) {
@@ -63,7 +63,7 @@ public class TeacherRepository {
             FileWriter fileWriter = new FileWriter(file);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (Teacher t: teachers) {
-                bufferedWriter.write(t.getId()+ "," +t.getName()+ "," +t.getAddress()+ "," +t.getAge()+ "," +t.getClassName());
+                bufferedWriter.write(t.getId()+ "," +t.getName()+ "," +t.getAddress()+ "," +t.getEmail()+ "," +t.getClassName()+","+t.getExperience());
                 bufferedWriter.newLine();
             }
             bufferedWriter.close();

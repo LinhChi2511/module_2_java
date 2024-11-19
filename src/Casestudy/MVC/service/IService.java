@@ -10,4 +10,5 @@ public interface IService<T>{
     void deleteById(int id);
     T findById(int id);
     void update(T t);
+    T findByName(String name);
 }

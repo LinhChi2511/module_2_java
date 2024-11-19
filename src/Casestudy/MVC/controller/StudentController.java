@@ -36,4 +36,8 @@ public class StudentController {
     public void update(Student s) {
         studentService.update(s);
     }
+
+    public Student findByName(String name) {
+        return studentService.findByName(name);
+    }
 }

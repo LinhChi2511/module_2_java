@@ -31,4 +31,8 @@ public class TeacherController {
     public void delete(int id) {
         teacherService.deleteById(id);
     }
+
+    public Teacher findByName(String name) {
+        return teacherService.findByName(name);
+    }
 }
