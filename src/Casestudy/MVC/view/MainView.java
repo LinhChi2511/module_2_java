@@ -125,12 +125,12 @@ public class MainView {
                     System.out.print("Nhập id cần tìm kiếm: ");
                     int id = inputIdToFind();
                     if (teacherController.isExist(id)) {
-                        teacherController.findById(id);
+                        System.out.println(teacherController.findById(id));
                     } else {
                         System.out.println("Id not found");
                     }
                     break;
-                case 5:
+                case 4:
                     System.out.println("Tìm kiếm giáo viên theo tên");
                     System.out.print("Nhập tên giáo viên cần tìm: ");
                     Scanner scanner = new Scanner(System.in);
@@ -141,9 +141,11 @@ public class MainView {
                         System.out.println("Không tìm thấy giáo viên có tên " + name);
                     }
                     break;
-                case 6:
+                case 5:
                     System.out.println("Xóa giáo viên");
                     deleteTeacher();
+                    break;
+                case 6:
                     return;
             }
         }
