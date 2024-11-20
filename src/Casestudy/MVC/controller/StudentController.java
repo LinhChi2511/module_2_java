@@ -19,10 +19,7 @@ public class StudentController {
     }
 
     public boolean isExist(int id) {
-        if (studentService.findById(id) != null) {
-            return true;
-        }
-        return false;
+        return studentService.findById(id) != null;
     }
 
     public Student findById(int id) {

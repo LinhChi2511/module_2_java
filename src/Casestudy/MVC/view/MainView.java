@@ -350,8 +350,7 @@ public class MainView {
     private static int inputIdToFind() {
         Scanner scanner = new Scanner(System.in);
         try {
-            int id = Integer.parseInt(scanner.nextLine());
-            return id;
+            return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             System.out.print("Nhập lỗi. Vui lòng nhập lại: ");
         }
@@ -401,8 +400,7 @@ public class MainView {
     private static double inputPoint() {
         Scanner scanner = new Scanner(System.in);
         try {
-            double point = Double.parseDouble(scanner.nextLine());
-            return point;
+            return Double.parseDouble(scanner.nextLine());
         } catch (NumberFormatException e) {
             System.out.print("Nhập lỗi. Vui lòng nhập lại: ");
         } catch (Exception e) {
@@ -414,8 +412,7 @@ public class MainView {
     private static int inputExp() {
         Scanner scanner = new Scanner(System.in);
         try {
-            int exp = Integer.parseInt(scanner.nextLine());
-            return exp;
+            return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             System.out.print("Nhập lỗi. Vui lòng nhập lại: ");
         } catch (Exception e) {
