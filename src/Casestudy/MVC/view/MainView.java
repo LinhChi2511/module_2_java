@@ -194,6 +194,7 @@ public class MainView {
         StudentController studentController = new StudentController();
         System.out.print("Mời bạn nhập id: ");
         int id = inputIdToFind();
+        System.out.println(studentController.findById(id));
         if (studentController.isExist(id)) {
             System.out.print("Mời bạn nhập tên học sinh: ");
             String name = scanner.nextLine();
@@ -230,8 +231,6 @@ public class MainView {
         } else {
             System.out.println("Không tìm thấy id: " + id);
         }
-
-
     }
 
 

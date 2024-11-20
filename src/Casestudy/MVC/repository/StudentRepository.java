@@ -88,7 +88,7 @@ public class StudentRepository {
         for (int i=0; i<students.size(); i++){
             if (students.get(i).getId() == student.getId()){
                 students.set(i, student);
-                return;
+                break;
             }
         }
         saveList(students);
