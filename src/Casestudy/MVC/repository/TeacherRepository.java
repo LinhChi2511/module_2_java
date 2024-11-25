@@ -83,4 +83,14 @@ public class TeacherRepository {
         saveList(teachers);
     }
 
+    public void update(Teacher teacher){
+        List<Teacher> teachers = getAll();
+        for (int i=0; i<teachers.size(); i++) {
+            if (teachers.get(i).getId() == teacher.getId()) {
+                teachers.set(i, teacher);
+                break;
+            }
+        }
+        saveList(teachers);
+    }
 }

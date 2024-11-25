@@ -87,6 +87,7 @@ public class MainView {
                 case 6:
                     System.out.println("Thay đổi thông tin học sinh");
                     updateStudent();
+                    System.out.println("Thay đổi thành công");
                     break;
                 case 7:
                     return;
@@ -105,7 +106,8 @@ public class MainView {
             System.out.println("3. Tìm kiếm giảng viên theo id");
             System.out.println("4. Tìm kiếm giảng viên theo tên");
             System.out.println("5. Xóa giảng viên");
-            System.out.println("6. Thoát");
+            System.out.println("6. Sửa thông tin");
+            System.out.println("7. Thoát");
             System.out.print("Mời bạn nhập lựa chọn: ");
             int choice = inputChoice();
             switch (choice) {
@@ -146,6 +148,11 @@ public class MainView {
                     deleteTeacher();
                     break;
                 case 6:
+                    System.out.println("Thay đổi thông tin giáo viên");
+                    updateTeacher();
+                    System.out.println("Thay đổi thành công");
+                    break;
+                case 7:
                     return;
             }
         }
@@ -177,7 +184,7 @@ public class MainView {
         if (studentController.isExist(id2)) {
             System.out.println("Bạn có chắc chắn muốn xóa ");
             System.out.println(studentController.findById(id2));
-            System.out.print("Chọn 1 để xóa, hoặc phím bất kỳ để hủy: ");
+            System.out.print("Chọn 1 để xóa, hoặc phím 2 để hủy: ");
             int choice2 = inputChoice();
             if (choice2 == 1) {
                 studentController.deleteById(id2);
@@ -199,7 +206,7 @@ public class MainView {
             System.out.print("Mời bạn nhập tên học sinh: ");
             String name = scanner.nextLine();
             while (!(name.matches("^[A-Za-z ]+$"))) {
-                System.out.println("Bạn đã nhập sai định dạng");
+                System.out.println("Bạn đã nhập sai định dạng. Tên chỉ có kí tự chữ cái và khoảng trắng. Vd: Linh Chi");
                 System.out.print("Vui lòng nhập lại: ");
                 name = scanner.nextLine();
             }
@@ -207,7 +214,7 @@ public class MainView {
             System.out.print("Mời bạn nhập địa chỉ học sinh: ");
             String address = scanner.nextLine();
             while (!(address.matches("^[A-Za-z0-9 -]+$"))) {
-                System.out.println("Bạn đã nhập sai định dạng");
+                System.out.println("Bạn đã nhập sai định dạng. Địa chỉ chỉ có kí tự chữ cái và khoảng trắng. Vd: Linh Chi");
                 System.out.print("Vui lòng nhập lại: ");
                 address = scanner.nextLine();
             }
@@ -228,6 +235,56 @@ public class MainView {
 
             Student s = new Student(id, name, address, point, className);
             studentController.update(s);
+        } else {
+            System.out.println("Không tìm thấy id: " + id);
+        }
+    }
+
+    public static void updateTeacher() {
+        Scanner scanner = new Scanner(System.in);
+        TeacherController teacherController = new TeacherController();
+        System.out.print("Mời bạn nhập id: ");
+        int id = inputIdToFind();
+        System.out.println(teacherController.findById(id));
+        if (teacherController.isExist(id)) {
+            System.out.print("Mời bạn nhập tên giáo viên: ");
+            String name = scanner.nextLine();
+            while (!(name.matches("^[A-Za-z ]+$"))) {
+                System.out.println("Bạn đã nhập sai định dạng. Tên chỉ có kí tự chữ cái và khoảng trắng. Vd: Linh Chi");
+                System.out.print("Vui lòng nhập lại: ");
+                name = scanner.nextLine();
+            }
+
+            System.out.print("Mời bạn nhập địa chỉ giáo viên: ");
+            String address = scanner.nextLine();
+            while (!(address.matches("^[A-Za-z0-9 -]+$"))) {
+                System.out.println("Bạn đã nhập sai định dạng. Địa chỉ chỉ có kí tự chữ cái và khoảng trắng. Vd: Linh Chi");
+                System.out.print("Vui lòng nhập lại: ");
+                address = scanner.nextLine();
+            }
+
+            System.out.println("Mời bạn nhập email: ");
+            String email = scanner.nextLine();
+            while (!(email.matches("^[A-Za-z0-9@.]+$"))) {
+                System.out.print("Nhập sai định dạng, vui lòng nhập lại: ");
+                email = scanner.nextLine();
+            }
+
+            System.out.print("Mời bạn nhập lớp: ");
+            String className = scanner.nextLine();
+            while (!(className.matches("^C[0-9]{4}"))) {
+                System.out.println("Bạn đã nhập sai định dạng");
+                System.out.print("Vui lòng nhập lại (Cxx24 vd:C0724): ");
+                className = scanner.nextLine();
+            }
+
+            System.out.print("Mời bạn nhập năm kinh nghiệm: ");
+            int exp = inputExp();
+            while (exp < 0) {
+                exp = inputExp();
+            }
+            Teacher t = new Teacher(id, name, address,email, className, exp);
+            teacherController.update(t);
         } else {
             System.out.println("Không tìm thấy id: " + id);
         }
@@ -270,7 +327,7 @@ public class MainView {
         System.out.print("Mời bạn nhập tên học sinh: ");
         String name = scanner.nextLine();
         while (!(name.matches("^[A-Za-z ]+$"))) {
-            System.out.println("Bạn đã nhập sai định dạng");
+            System.out.println("Bạn đã nhập sai định dạng. Tên chỉ bao gồm chữ cái và khoảng cách Vd: Linh Chi");
             System.out.print("Vui lòng nhập lại: ");
             name = scanner.nextLine();
         }
@@ -278,14 +335,15 @@ public class MainView {
         System.out.print("Mời bạn nhập địa chỉ học sinh: ");
         String address = scanner.nextLine();
         while (!(address.matches("^[A-Za-z0-9 -]+$"))) {
-            System.out.println("Bạn đã nhập sai định dạng");
+            System.out.println("Bạn đã nhập sai định dạng. Địa chỉ chỉ bao gồm chữ cái và khoảng cách Vd: Da Nang");
             System.out.print("Vui lòng nhập lại: ");
             address = scanner.nextLine();
         }
 
         System.out.print("Mời bạn nhập điểm của học sinh: ");
         double point = inputPoint();
-        while (point < 0) {
+        while (point <= 0) {
+            System.out.print("Mời nhập lại: ");
             point = inputPoint();
         }
 
@@ -325,7 +383,7 @@ public class MainView {
 
         System.out.println("Mời bạn nhập email: ");
         String email = scanner.nextLine();
-        while (!(email.matches("^[A-Za-z0-9@]+$"))) {
+        while (!(email.matches("^[A-Za-z0-9@.]+$"))) {
             System.out.print("Nhập sai định dạng, vui lòng nhập lại: ");
             email = scanner.nextLine();
         }

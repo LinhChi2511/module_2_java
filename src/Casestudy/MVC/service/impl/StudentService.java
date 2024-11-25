@@ -1,5 +1,6 @@
 package Casestudy.MVC.service.impl;
 
+import Casestudy.MVC.compare.StudentCompare;
 import Casestudy.MVC.entity.Student;
 import Casestudy.MVC.repository.StudentRepository;
 import Casestudy.MVC.service.IStudentService;
@@ -12,7 +13,9 @@ public class StudentService implements IStudentService {
 
     @Override
     public List<Student> getAll() {
+        StudentCompare studentCompare = new StudentCompare();
         List<Student> students = studentRepository.getAll();
+        students.sort(studentCompare);
         return students;
     }
 

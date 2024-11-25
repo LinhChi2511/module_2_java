@@ -35,4 +35,9 @@ public class TeacherController {
     public Teacher findByName(String name) {
         return teacherService.findByName(name);
     }
+
+    public void update(Teacher teacher){
+        teacherService.update(teacher);
+    }
+
 }

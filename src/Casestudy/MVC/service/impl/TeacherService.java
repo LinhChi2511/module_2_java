@@ -1,7 +1,7 @@
 package Casestudy.MVC.service.impl;
 
+import Casestudy.MVC.compare.TeacherCompare;
 import Casestudy.MVC.entity.Teacher;
-import Casestudy.MVC.repository.StudentRepository;
 import Casestudy.MVC.repository.TeacherRepository;
 import Casestudy.MVC.service.ITeacherService;
 
@@ -12,7 +12,9 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public List<Teacher> getAll() {
+        TeacherCompare teacherCompare = new TeacherCompare();
         List<Teacher> teachers = teacherRepository.getAll();
+        teachers.sort(teacherCompare);
         return teachers;
     }
 
@@ -33,7 +35,7 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public void update(Teacher teacher) {
-
+        teacherRepository.update(teacher);
     }
 
     @Override
@@ -46,4 +48,5 @@ public class TeacherService implements ITeacherService {
         }
         return null;
     }
+
 }
